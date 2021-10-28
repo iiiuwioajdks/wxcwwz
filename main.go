@@ -17,17 +17,19 @@ func main() {
 	go func() {
 		for {
 			t := time.Now().Hour()
-			if t == 8 || t == 12 || t == 18 {
+			if t == 9 || t == 13 || t == 19 {
 				reqHandler.WxReq()
-				time.Sleep(time.Hour)
+				minute := time.Now().Minute()
+				m := time.Duration(minute) * time.Minute
+				time.Sleep(time.Hour - m)
 			}
-			if t < 8 {
+			if t < 9 {
 				time.Sleep(time.Duration(8-t) * time.Hour)
-			} else if t > 8 && t < 12 {
+			} else if t > 9 && t < 13 {
 				time.Sleep(time.Duration(15-t) * time.Hour)
-			} else if t > 12 && t < 18 {
+			} else if t > 13 && t < 19 {
 				time.Sleep(time.Duration(18-t) * time.Hour)
-			} else if t > 18 {
+			} else if t > 19 {
 				time.Sleep(time.Duration(24-t) * time.Hour)
 			}
 		}
